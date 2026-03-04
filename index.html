@@ -2,61 +2,48 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Private Study Space 📚</title>
+<title>Private Romantic Chat 💗</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- JOIN SCREEN -->
 <div id="join" class="center">
-  <h1 class="logo">📚 Private Study Space</h1>
+  <h1 class="logo">💗 Private Space</h1>
   <input id="username" placeholder="Your name...">
   <input id="password" type="password" placeholder="Enter secret password">
-  <button onclick="joinChat()">Enter</button>
+  <button onclick="joinChat()">Enter Chat ✨</button>
 </div>
 
-<!-- MAIN APP SCREEN -->
-<div id="app" class="hidden">
-
-  <!-- Header -->
+<!-- CHAT SCREEN -->
+<div id="chat" class="hidden">
   <div class="header">
-    📖 Study Companion
-    <div id="status">💡 Online</div>
+    💌 Our Private Space
+    <div id="status">💗 Online</div>
   </div>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tabBtn" onclick="showTab('chat')">Chat</button>
-    <button class="tabBtn" onclick="showTab('notes')">Notes</button>
-    <button class="tabBtn" onclick="showTab('flashcards')">Flashcards</button>
+  <!-- Mood Selector -->
+  <div class="moodBox">
+    <select id="mood" onchange="updateMood()">
+      <option value="">Set Mood 💗</option>
+      <option>😊 Happy</option>
+      <option>😌 Calm</option>
+      <option>❤️ Loving</option>
+      <option>😴 Sleepy</option>
+      <option>😔 Sad</option>
+      <option>🔥 Excited</option>
+    </select>
+    <div id="liveMood"></div>
   </div>
 
-  <!-- Chat Tab -->
-  <div id="chat" class="tabContent">
-    <div class="inputArea">
-      <input id="msgInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
-      <button onclick="sendMessage()">➤</button>
-    </div>
-    <div id="messages"></div>
-  </div>
+  <div id="messages"></div>
 
-  <!-- Notes Tab -->
-  <div id="notes" class="tabContent hidden">
-    <div id="notesList">
-      <!-- Notes loaded from Firebase -->
-    </div>
+  <div class="inputArea">
+    <input id="msgInput" placeholder="Type something sweet..." onkeypress="if(event.key==='Enter') sendMessage()">
+    <button onclick="sendMessage()">➤</button>
   </div>
-
-  <!-- Flashcards Tab -->
-  <div id="flashcards" class="tabContent hidden">
-    <div id="flashcardDisplay">
-      <p id="flashQuestion">Click 'Next' for a study tip!</p>
-      <button onclick="nextFlashcard()">Next</button>
-    </div>
-  </div>
-
 </div>
 
 <audio id="msgSound">
