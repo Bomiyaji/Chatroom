@@ -1,22 +1,21 @@
-const CACHE_NAME = "private-chat-v1";
-const urlsToCache = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/app.js",
-  "/manifest.json"
-];
+const CACHE_NAME="private-chat-v1";
 
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-  );
+self.addEventListener("install",e=>{
+ e.waitUntil(
+  caches.open(CACHE_NAME).then(cache=>{
+   return cache.addAll([
+    "/",
+    "/index.html",
+    "/style.css",
+    "/app.js",
+    "/manifest.json"
+   ]);
+  })
+ );
 });
 
-self.addEventListener("fetch", event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+self.addEventListener("fetch",e=>{
+ e.respondWith(
+  caches.match(e.request).then(r=>r||fetch(e.request))
+ );
 });
