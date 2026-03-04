@@ -1,39 +1,27 @@
-/* FULL SCREEN FIX */
-html, body{
+body{
 margin:0;
-padding:0;
-height:100%;
-overflow:hidden;
 font-family:'Poppins',sans-serif;
 background:linear-gradient(135deg,#ff9ecb,#ffd6e7);
+height:100vh;
 }
 
-/* Mobile height fix */
-body{
-min-height:100dvh;
-}
-
-/* Join & Chat full screen */
-#join, #chat{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100dvh;
-}
-
-/* Center join */
+/* JOIN SCREEN */
 .center{
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+height:100vh;
 gap:15px;
+animation:fade 1s;
 }
 
-.hidden{
-display:none;
+.logo{
+font-family:'Playfair Display',serif;
+color:white;
 }
+
+.hidden{display:none;}
 
 input{
 padding:14px;
@@ -41,7 +29,7 @@ border:none;
 border-radius:25px;
 width:230px;
 outline:none;
-font-size:16px; /* iPhone zoom fix */
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
 button{
@@ -54,18 +42,21 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* Chat Layout */
+/* CHAT SCREEN */
 #chat{
 display:flex;
 flex-direction:column;
+height:100vh;
 }
 
 .header{
 text-align:center;
 padding:15px;
-background:#ff3f8e;
 color:white;
 font-weight:600;
+background:rgba(255,0,120,0.6);
+backdrop-filter:blur(10px);
+position:relative;
 }
 
 #status{
@@ -73,11 +64,28 @@ font-size:12px;
 margin-top:4px;
 }
 
-/* Only messages scroll */
+.moodBox{
+text-align:center;
+padding:6px;
+background:rgba(255,255,255,0.6);
+backdrop-filter:blur(8px);
+}
+
+#mood{
+border:none;
+padding:6px 12px;
+border-radius:20px;
+}
+
+#liveMood{
+font-size:13px;
+margin-top:4px;
+color:#ff2f7a;
+}
+
 #messages{
 flex:1;
 overflow-y:auto;
--webkit-overflow-scrolling:touch;
 padding:12px;
 }
 
@@ -86,6 +94,8 @@ max-width:75%;
 padding:10px 14px;
 margin:8px 0;
 border-radius:18px;
+position:relative;
+animation:fade .3s;
 }
 
 .me{
@@ -113,4 +123,9 @@ gap:6px;
 
 .inputArea input{
 flex:1;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1}
 }
