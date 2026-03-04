@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Private Romantic Chat 💗</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- JOIN SCREEN -->
 <div id="join" class="center">
-  <h2>💗 Private Space</h2>
+  <h1 class="logo">💗 Private Space</h1>
   <input id="username" placeholder="Your name...">
   <input id="password" type="password" placeholder="Enter secret password">
   <button onclick="joinChat()">Enter Chat ✨</button>
@@ -24,14 +24,31 @@
     <div id="status">💗 Online</div>
   </div>
 
+  <!-- Mood Selector -->
+  <div class="moodBox">
+    <select id="mood" onchange="updateMood()">
+      <option value="">Set Mood 💗</option>
+      <option>😊 Happy</option>
+      <option>😌 Calm</option>
+      <option>❤️ Loving</option>
+      <option>😴 Sleepy</option>
+      <option>😔 Sad</option>
+      <option>🔥 Excited</option>
+    </select>
+    <div id="liveMood"></div>
+  </div>
+
   <div id="messages"></div>
 
   <div class="inputArea">
-    <input id="msgInput" placeholder="Type something sweet..."
-    onkeypress="if(event.key==='Enter') sendMessage()">
+    <input id="msgInput" placeholder="Type something sweet..." onkeypress="if(event.key==='Enter') sendMessage()">
     <button onclick="sendMessage()">➤</button>
   </div>
 </div>
+
+<audio id="msgSound">
+  <source src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg">
+</audio>
 
 <script type="module" src="app.js"></script>
 </body>
