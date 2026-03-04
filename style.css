@@ -3,22 +3,23 @@ margin:0;
 font-family:'Poppins',sans-serif;
 background:linear-gradient(135deg,#ff9ecb,#ffd6e7);
 height:100vh;
+overflow:hidden;
 }
 
-/* JOIN SCREEN */
+#join,#chat{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+}
+
 .center{
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-height:100vh;
 gap:15px;
-animation:fade 1s;
-}
-
-.logo{
-font-family:'Playfair Display',serif;
-color:white;
 }
 
 .hidden{display:none;}
@@ -29,7 +30,6 @@ border:none;
 border-radius:25px;
 width:230px;
 outline:none;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
 button{
@@ -42,45 +42,22 @@ font-weight:bold;
 cursor:pointer;
 }
 
-/* CHAT SCREEN */
 #chat{
 display:flex;
 flex-direction:column;
-height:100vh;
 }
 
 .header{
 text-align:center;
 padding:15px;
+background:#ff3f8e;
 color:white;
 font-weight:600;
-background:rgba(255,0,120,0.6);
-backdrop-filter:blur(10px);
-position:relative;
 }
 
 #status{
 font-size:12px;
 margin-top:4px;
-}
-
-.moodBox{
-text-align:center;
-padding:6px;
-background:rgba(255,255,255,0.6);
-backdrop-filter:blur(8px);
-}
-
-#mood{
-border:none;
-padding:6px 12px;
-border-radius:20px;
-}
-
-#liveMood{
-font-size:13px;
-margin-top:4px;
-color:#ff2f7a;
 }
 
 #messages{
@@ -95,7 +72,6 @@ padding:10px 14px;
 margin:8px 0;
 border-radius:18px;
 position:relative;
-animation:fade .3s;
 }
 
 .me{
@@ -123,9 +99,4 @@ gap:6px;
 
 .inputArea input{
 flex:1;
-}
-
-@keyframes fade{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1}
 }
