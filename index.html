@@ -2,7 +2,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Private Room</title>
+<title>Private Romantic Chat</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff3d81">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -28,12 +33,19 @@
   <div id="messages"></div>
 
   <div class="bottomBar">
-    <input id="msgInput" placeholder="Type a message..." 
+    <input id="msgInput" placeholder="Type a message..."
     onkeypress="if(event.key==='Enter') sendMessage()">
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
 
 <script type="module" src="app.js"></script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
 </body>
 </html>
