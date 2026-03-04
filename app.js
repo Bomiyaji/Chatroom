@@ -1,38 +1,26 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getDatabase, ref, push, onChildAdded, set, onValue, onDisconnect } 
-from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+import { getDatabase, ref, push, onChildAdded, set, onValue } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
 
 const firebaseConfig={
  apiKey:"YOUR_API_KEY",
- authDomain:"YOUR_AUTH_DOMAIN",
- databaseURL:"YOUR_DATABASE_URL",
- projectId:"YOUR_PROJECT_ID"
+ authDomain:"chatroom5757.firebaseapp.com",
+ databaseURL:"https://chatroom5757-default-rtdb.firebaseio.com",
+ projectId:"chatroom5757"
 };
 
 const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
 
 const chatRef=ref(db,"romanticChat");
+const typingRef=ref(db,"typing");
 const moodRef=ref(db,"moods");
-const onlineRef=ref(db,"onlineUsers");
 
 let username="";
 
-let wrongAttempts = Number(localStorage.getItem("wrongAttempts")) || 0;
-let lockUntil = Number(localStorage.getItem("lockUntil")) || 0;
-
 /* JOIN */
 window.joinChat=function(){
-
  const name=document.getElementById("username").value.trim();
- const pass=document.getElementById("password").value.trim();
- const now=Date.now();
-
- if(now < lockUntil){
-   const sec=Math.ceil((lockUntil-now)/1000);
-   alert("Blocked. Try again in "+sec+" seconds");
-   return;
- }
+ const pass=document.getElementById("password").value;
 
  if(!name){
    alert("Enter your name");
@@ -40,42 +28,23 @@ window.joinChat=function(){
  }
 
  if(pass!=="7204"){
-   wrongAttempts++;
-   localStorage.setItem("wrongAttempts",wrongAttempts);
-
-   if(wrongAttempts>=10){
-     lockUntil=Date.now()+5*60*1000;
-     localStorage.setItem("lockUntil",lockUntil);
-     localStorage.setItem("wrongAttempts",0);
-     wrongAttempts=0;
-     alert("Blocked for 5 minutes");
-     return;
-   }
-
-   alert("Wrong password ("+wrongAttempts+"/10)");
+   alert("Wrong password 💔");
    return;
  }
-
- localStorage.removeItem("wrongAttempts");
- localStorage.removeItem("lockUntil");
 
  username=name;
 
  document.getElementById("join").style.display="none";
  document.getElementById("chat").classList.remove("hidden");
 
- const userOnlineRef=ref(db,"onlineUsers/"+username);
- set(userOnlineRef,true);
- onDisconnect(userOnlineRef).remove();
+ push(chatRef,{
+   name:"System",
+   message:`✨ ${username} joined the chat`,
+   time:new Date().toLocaleTimeString()
+ });
 };
 
-/* ONLINE COUNT */
-onValue(onlineRef,(snap)=>{
- const count=snap.exists()?Object.keys(snap.val()).length:0;
- document.getElementById("status").innerText="🟢 Online: "+count;
-});
-
-/* SEND */
+/* SEND MESSAGE */
 window.sendMessage=function(){
  const input=document.getElementById("msgInput");
  const text=input.value.trim();
@@ -87,55 +56,47 @@ window.sendMessage=function(){
    time:new Date().toLocaleTimeString()
  });
 
+ set(typingRef,{name:""});
  input.value="";
 };
 
-/* RECEIVE */
+/* TYPING */
+document.getElementById("msgInput").addEventListener("input",()=>{
+ set(typingRef,{name:username});
+});
+
+/* SHOW TYPING */
+onValue(typingRef,(snap)=>{
+ const data=snap.val();
+ const status=document.getElementById("status");
+
+ if(data && data.name && data.name!==username){
+   status.innerText=`💗 ${data.name} is typing...`;
+ } else {
+   status.innerText="💗 Online";
+ }
+});
+
+/* RECEIVE MESSAGE */
 onChildAdded(chatRef,(data)=>{
  const msg=data.val();
  const div=document.createElement("div");
+
  div.className="msg "+(msg.name===username?"me":"other");
+ div.innerHTML=`<b>${msg.name}</b><br>${msg.message}<div class="time">${msg.time}</div>`;
 
- const nameEl=document.createElement("b");
- nameEl.textContent=msg.name;
+ div.ondblclick=()=>{
+   const heart=document.createElement("div");
+   heart.innerText="❤️";
+   heart.style.position="absolute";
+   heart.style.animation="fade 1s";
+   div.appendChild(heart);
+   setTimeout(()=>heart.remove(),1000);
+ };
 
- const br=document.createElement("br");
-
- const text=document.createElement("span");
- text.textContent=msg.message;
-
- const time=document.createElement("div");
- time.className="time";
- time.textContent=msg.time;
-
- div.appendChild(nameEl);
- div.appendChild(br);
- div.appendChild(text);
- div.appendChild(time);
-
- // Emoji reactions
- const reactBox=document.createElement("div");
- reactBox.style.marginTop="5px";
-
- ["❤️","😂","😮","🔥"].forEach(e=>{
-   const span=document.createElement("span");
-   span.innerText=e;
-   span.style.cursor="pointer";
-   span.style.marginRight="5px";
-   span.onclick=()=>{
-     const r=document.createElement("span");
-     r.innerText=e;
-     r.style.marginLeft="5px";
-     div.appendChild(r);
-   };
-   reactBox.appendChild(span);
- });
-
- div.appendChild(reactBox);
-
- document.getElementById("messages").appendChild(div);
- document.getElementById("messages").scrollTop=
- document.getElementById("messages").scrollHeight;
+ const messages=document.getElementById("messages");
+ messages.appendChild(div);
+ messages.scrollTop=messages.scrollHeight;
 });
 
 /* MOOD */
@@ -148,7 +109,7 @@ onValue(moodRef,(snap)=>{
  let text="";
  snap.forEach(child=>{
    const data=child.val();
-   text+=data.name+" "+data.mood+" | ";
+   text+=`${data.name}: ${data.mood} | `;
  });
  document.getElementById("liveMood").innerText=text;
 });
