@@ -1,41 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Private Romantic Chat</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Private Romantic Chat 💗</title>
 
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff3d81">
+<meta name="theme-color" content="#ff3f8e">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="joinScreen" class="joinScreen">
-  <div class="card">
-    <h2>Private Room</h2>
-    <input id="username" placeholder="Enter your name">
-    <input id="password" type="password" placeholder="Password">
-    <button onclick="joinChat()">Enter</button>
-  </div>
+<div id="join" class="center">
+  <h1 class="logo">💗 Private Space</h1>
+  <input id="username" placeholder="Your name...">
+  <input id="password" type="password" placeholder="Enter secret password">
+  <button onclick="joinChat()">Enter Chat ✨</button>
 </div>
 
-<div id="chatScreen" class="hidden">
-  <header>
-    <div>
-      <h3>Private Space</h3>
-      <small id="status">Online</small>
-    </div>
-  </header>
+<div id="chat" class="hidden">
+  <div class="header">
+    💌 Our Private Space
+    <div id="status">💗 Online</div>
+  </div>
+
+  <div class="moodBox">
+    <select id="mood" onchange="updateMood()">
+      <option value="">Set Mood 💗</option>
+      <option>😊 Happy</option>
+      <option>😌 Calm</option>
+      <option>❤️ Loving</option>
+      <option>😴 Sleepy</option>
+      <option>😔 Sad</option>
+      <option>🔥 Excited</option>
+    </select>
+    <div id="liveMood"></div>
+  </div>
 
   <div id="messages"></div>
 
-  <div class="bottomBar">
-    <input id="msgInput" placeholder="Type a message..."
-    onkeypress="if(event.key==='Enter') sendMessage()">
-    <button onclick="sendMessage()">Send</button>
+  <div class="inputArea">
+    <input id="msgInput" placeholder="Type something sweet..." onkeypress="if(event.key==='Enter') sendMessage()">
+    <button onclick="sendMessage()">➤</button>
   </div>
 </div>
 
