@@ -36,8 +36,8 @@ window.sendMessage=function(){
 
  push(chatRef,{
   name:username,
-  message:text,
-  time:new Date().toLocaleTimeString()
+  text:text,
+  timestamp:Date.now()
  });
 
  set(typingRef,{name:""});
@@ -64,7 +64,7 @@ onChildAdded(chatRef,(data)=>{
 
  const div=document.createElement("div");
  div.className="message "+(msg.name===username?"me":"other");
- div.innerHTML=`${msg.message}<div class="time">${msg.time}</div>`;
+ div.innerHTML=`${msg.text}<div class="time">${new Date(msg.timestamp).toLocaleTimeString()}</div>`;
 
  const container=document.getElementById("messages");
  container.appendChild(div);
