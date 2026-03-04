@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Private Chat 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Private Romantic Chat 💗</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- JOIN SCREEN -->
 <div id="join" class="center">
   <h2>💗 Private Space</h2>
-  <input id="username" placeholder="Your name">
-  <input id="password" type="password" placeholder="Room password">
-  <button onclick="joinChat()">Enter</button>
+  <input id="username" placeholder="Your name...">
+  <input id="password" type="password" placeholder="Enter secret password">
+  <button onclick="joinChat()">Enter Chat ✨</button>
 </div>
 
+<!-- CHAT SCREEN -->
 <div id="chat" class="hidden">
   <div class="header">
-    Private Room 💌
-    <div id="status">Checking...</div>
+    💌 Our Private Space
+    <div id="status">💗 Online</div>
   </div>
 
   <div id="messages"></div>
 
   <div class="inputArea">
-    <input id="msgInput" placeholder="Type message..."
+    <input id="msgInput" placeholder="Type something sweet..."
     onkeypress="if(event.key==='Enter') sendMessage()">
     <button onclick="sendMessage()">➤</button>
   </div>
