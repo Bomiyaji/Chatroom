@@ -3,8 +3,8 @@
   "short_name": "PrivateChat",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f0f14",
-  "theme_color": "#ff3d81",
+  "background_color": "#ffd6e7",
+  "theme_color": "#ff3f8e",
   "orientation": "portrait",
   "icons": [
     {
